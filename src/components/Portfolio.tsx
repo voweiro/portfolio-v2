@@ -16,6 +16,12 @@ const projects = [
     title: "Music App",
     description: "The web site shows people information about the Organisation and how to contact them",
   },
+
+  {
+    image: "/images/work-2.png",
+    title: "Dusic App",
+    description: "The web site shows people information about the Organisation and how to contact them",
+  },
   {
     image: "/images/work-3.png",
     title: "Online Shopping App",

@@ -46,12 +46,12 @@ export default function Contact() {
             <p className="flex items-center mb-4">
               <Send className="w-6 h-6 mr-4 text-pink-600" />
               <a href="mailto:example@email.com" className="hover:text-pink-600 transition-colors duration-300">
-                example@email.com
+                ajenaghonorevoweiro@gmail.com
               </a>
             </p>
             <p className="flex items-center mb-8">
               <Phone className="w-6 h-6 mr-4 text-pink-600" />
-              +2347051586433
+              +234738734379
             </p>
             <div className="flex space-x-4">
               {[Facebook, Twitter, Instagram, Linkedin].map((Icon, index) => (

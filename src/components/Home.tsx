@@ -9,9 +9,9 @@ export default function Home() {
     >
       <div className="container mx-auto px-4">
         <div className="mt-20 lg:mt-32">
-          <p className="text-2xl mb-4 text-gray-800 dark:text-gray-200">Frontend Developer</p>
+          <p className="text-2xl mb-4 text-gray-800 dark:text-gray-200">Full Stack  Developer</p>
           <h1 className="text-4xl lg:text-6xl font-bold mb-4">
-            Hi, I'm <span className="text-pink-600">Ajenaghonore</span> <br /> Voweiro from Nigeria
+            Hi, I'm <span className="text-pink-600">Ajenaghonore</span> <br /> Voweiro
           </h1>
         </div>
       </div>
