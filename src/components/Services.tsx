@@ -1,28 +1,28 @@
-"use client"
+"use client";
 
-import { Code, Crop, LanguagesIcon as Language } from "lucide-react"
-import { motion } from "framer-motion"
+import { Code, Server, LifeBuoy } from "lucide-react";
+import { motion } from "framer-motion";
 
 const services = [
   {
     icon: Code,
     title: "Frontend Developer",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, voluptate? Quod similique temporibus quae voluptatem optio velit adipisci facilis, laborum, inventore libero deserunt esse eum voluptatum voluptates veritatis ea rem!",
+      "I specialize in crafting modern, responsive, and interactive web interfaces using React.js, Next.js, and Tailwind CSS. I ensure seamless user experiences with optimized performance and accessibility.",
   },
   {
-    icon: Crop,
-    title: "Web Developer",
+    icon: Server,
+    title: "Full-Stack Web Developer",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, voluptate? Quod similique temporibus quae voluptatem optio velit adipisci facilis, laborum, inventore libero deserunt esse eum voluptatum voluptates veritatis ea rem!",
+      "I build scalable and efficient web applications using the MERN stack (MongoDB, Express.js, React.js, Node.js). From backend API development to frontend UI design, I deliver complete web solutions.",
   },
   {
-    icon: Language,
-    title: "Language Translator",
+    icon: LifeBuoy,
+    title: "IT Support & Troubleshooting",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, voluptate? Quod similique temporibus quae voluptatem optio velit adipisci facilis, laborum, inventore libero deserunt esse eum voluptatum voluptates veritatis ea rem!",
+      "I provide technical assistance and troubleshooting for software, networks, and cloud-based systems. My experience includes diagnosing system errors, resolving bugs, and ensuring smooth IT operations.",
   },
-]
+];
 
 export default function Services() {
   return (
@@ -54,6 +54,5 @@ export default function Services() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-

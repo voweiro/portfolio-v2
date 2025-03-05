@@ -1,5 +1,3 @@
-"use client"
-
 import Header from "@/components/Header"
 import Home from "@/components/Home"
 import About from "@/components/About"
@@ -12,19 +10,19 @@ export default function Page() {
   return (
     <main>
       <Header />
-      <FadeInSection>
+      <FadeInSection triggerOnce={true}>
         <Home />
       </FadeInSection>
-      <FadeInSection>
+      <FadeInSection triggerOnce={true}>
         <About />
       </FadeInSection>
-      <FadeInSection>
+      <FadeInSection triggerOnce={true}>
         <Services />
       </FadeInSection>
-      <FadeInSection>
+      <FadeInSection triggerOnce={true}>
         <Portfolio />
       </FadeInSection>
-      <FadeInSection>
+      <FadeInSection triggerOnce={true}>
         <Contact />
       </FadeInSection>
     </main>

@@ -1,29 +1,29 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import { Facebook, Twitter, Instagram, Linkedin, Send, Phone } from "lucide-react"
-import { motion } from "framer-motion"
+import { useState } from "react";
+import { Facebook, Twitter, Instagram, Linkedin, Send, Phone } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitMessage, setSubmitMessage] = useState("")
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    // Here you would typically send the form data to your server or a third-party service
-    await new Promise((resolve) => setTimeout(resolve, 2000)) // Simulating API call
-    setSubmitMessage("Message sent successfully")
-    setFormData({ name: "", email: "", message: "" })
-    setIsSubmitting(false)
-  }
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulating API call
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    setSubmitMessage("Your message has been sent successfully!");
+    setFormData({ name: "", email: "", message: "" });
+    setIsSubmitting(false);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <section id="contact" className="py-20 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
@@ -37,6 +37,7 @@ export default function Contact() {
           Contact Me
         </motion.h2>
         <div className="flex flex-wrap -mx-4">
+          {/* Contact Info */}
           <motion.div
             className="w-full lg:w-1/2 px-4 mb-12 lg:mb-0"
             initial={{ opacity: 0, x: -50 }}
@@ -45,19 +46,30 @@ export default function Contact() {
           >
             <p className="flex items-center mb-4">
               <Send className="w-6 h-6 mr-4 text-pink-600" />
-              <a href="mailto:example@email.com" className="hover:text-pink-600 transition-colors duration-300">
+              <a href="mailto:ajenaghonorevoweiro@gmail.com" className="hover:text-pink-600 transition-colors duration-300">
                 ajenaghonorevoweiro@gmail.com
               </a>
             </p>
             <p className="flex items-center mb-8">
               <Phone className="w-6 h-6 mr-4 text-pink-600" />
-              +234738734379
+              <a href="tel:+234738734379" className="hover:text-pink-600 transition-colors duration-300">
+                +234 738 734 379
+              </a>
             </p>
+
+            {/* Social Media Links */}
             <div className="flex space-x-4">
-              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, index) => (
+              {[
+                { icon: Facebook, url: "https://facebook.com/yourprofile" },
+                { icon: Twitter, url: "https://twitter.com/yourprofile" },
+                { icon: Instagram, url: "https://instagram.com/yourprofile" },
+                { icon: Linkedin, url: "https://linkedin.com/in/yourprofile" },
+              ].map(({ icon: Icon, url }, index) => (
                 <motion.a
                   key={index}
-                  href="#"
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-500 dark:text-gray-400 hover:text-pink-600 transition-colors duration-300"
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
@@ -66,6 +78,8 @@ export default function Contact() {
                 </motion.a>
               ))}
             </div>
+
+            {/* Download CV */}
             <motion.a
               href="/my-cv.pdf"
               download
@@ -76,6 +90,8 @@ export default function Contact() {
               Download CV
             </motion.a>
           </motion.div>
+
+          {/* Contact Form */}
           <motion.div
             className="w-full lg:w-1/2 px-4"
             initial={{ opacity: 0, x: 50 }}
@@ -83,11 +99,7 @@ export default function Contact() {
             transition={{ duration: 0.5 }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <input
                   type="text"
                   name="name"
@@ -98,11 +110,7 @@ export default function Contact() {
                   className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-600"
                 />
               </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
                 <input
                   type="email"
                   name="email"
@@ -113,11 +121,7 @@ export default function Contact() {
                   className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-600"
                 />
               </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
                 <textarea
                   name="message"
                   value={formData.message}
@@ -139,22 +143,18 @@ export default function Contact() {
               </motion.button>
             </form>
             {submitMessage && (
-              <motion.p
-                className="mt-4 text-green-500"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
+              <motion.p className="mt-4 text-green-500" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 {submitMessage}
               </motion.p>
             )}
           </motion.div>
         </div>
       </div>
+
+      {/* Footer */}
       <div className="mt-20 py-8 bg-gray-200 dark:bg-gray-800 text-center">
-        <p className="text-gray-900 dark:text-white">&copy; 2023 Ajenaghonore ben. All rights reserved.</p>
+        <p className="text-gray-900 dark:text-white">&copy; {new Date().getFullYear()} Ajenaghughrure Voweiro. All rights reserved.</p>
       </div>
     </section>
-  )
+  );
 }
-
