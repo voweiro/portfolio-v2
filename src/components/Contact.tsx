@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Facebook, Twitter, Instagram, Linkedin, Send, Phone } from "lucide-react";
+import { Linkedin, Github, Send, Phone } from "lucide-react";
 import { motion } from "framer-motion";
-
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -61,10 +60,8 @@ export default function Contact() {
             {/* Social Media Links */}
             <div className="flex space-x-4">
               {[
-                { icon: Facebook, url: "https://facebook.com/yourprofile" },
-                { icon: Twitter, url: "https://twitter.com/yourprofile" },
-                { icon: Instagram, url: "https://instagram.com/yourprofile" },
-                { icon: Linkedin, url: "https://linkedin.com/in/yourprofile" },
+                { icon: Linkedin, url: "https://www.linkedin.com/in/ajenahonore-voweiro-623972289/" },
+                { icon: Github, url: "https://github.com/voweiro" },
               ].map(({ icon: Icon, url }, index) => (
                 <motion.a
                   key={index}
