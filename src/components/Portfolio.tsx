@@ -5,31 +5,43 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Correct image imports
+import glit from "../app/glitzlogo.png";
+import med from "../app/project-logo3.png";
+import green from "../app/Green-clean.png"
+import org from "../app/main logo.png"
+
 const projects = [
   {
-    image: "/images/work-1.png",
+    image: org.src,
     title: "Organization Website",
-    description: "A dynamic website that provides information about an organization and its services, including contact details.",
-    link: "https://example.com/organization",
+    description: "Welcome to Renew Nigeria, a pioneering platform dedicated to powering Nigeria's clean energy transition...",
+    link: "https://renewnigeria.vercel.app/",
   },
   {
-    image: "/images/work-2.png",
-    title: "Music Streaming App",
-    description: "A feature-rich web application that allows users to stream music, create playlists, and explore artists.",
-    link: "https://example.com/music-app",
+    image: glit.src,
+    title: "Glitz - Summer School Tech Training",
+    description: "Glitz is a dynamic platform that makes tech education fun for kids! With interactive lessons in coding, robotics, and more...",
+    link: "https://summercode.vercel.app/",
   },
   {
-    image: "/images/work-3.png",
-    title: "E-Commerce Platform",
-    description: "An online shopping platform with seamless user experience, payment gateway integration, and product recommendations.",
-    link: "https://example.com/e-commerce",
+    image: med.src,
+    title: "SelfMed Hub - Health Management System & Online Pharmacy",
+    description: "SelfMed Hub is an innovative healthcare platform that streamlines essential medical processes...",
+    link: "https://pharmastore-frontend.vercel.app/",
   },
   {
-    image: "/images/work-4.png",
-    title: "Portfolio Website",
-    description: "A modern and interactive portfolio website showcasing personal projects, skills, and contact information.",
-    link: "https://example.com/portfolio",
+    image: green.src,
+    title: "Green Clean Nigeria",
+    description: "Green Clean is a pioneering environmental services company dedicated to promoting sustainability...",
+    link: "https://green-nigeria-beryl.vercel.app",
   },
+  // {
+  //   image: "/images/work-5.png",
+  //   title: "Portfolio Website",
+  //   description: "A modern and interactive portfolio website showcasing personal projects, skills, and contact information.",
+  //   link: "https://example.com/portfolio",
+  // },
 ];
 
 export default function Portfolio() {
@@ -64,7 +76,7 @@ export default function Portfolio() {
                     alt={projects[currentIndex].title}
                     width={800}
                     height={600}
-                    className="w-full h-[400px] object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-auto aspect-[16/9] object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6"
