@@ -1,11 +1,11 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ThemeToggle } from "./theme-toggle"
+import log from "../app/logoaj.jpg"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 
 export default function Header() {
@@ -63,13 +63,13 @@ export default function Header() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-6 py-4">
         <nav className="flex items-center justify-between flex-wrap">
           <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-            <Image src="/images/icon.png" alt="Logo" width={140} height={40} className="w-36" />
+            <Image src={log} alt="Logo" width={80} height={80} className="w-20 h-20 rounded-full" />
           </motion.div>
           <div className="flex items-center">
-            <div className="mr-4">
+            <div className="mr-6">
               <ThemeToggle />
             </div>
             <div className="block lg:hidden">
@@ -95,7 +95,9 @@ export default function Header() {
             </div>
           </div>
           <motion.ul
-            className={`${isMenuOpen ? "block" : "hidden"} w-full flex-grow lg:flex lg:items-center lg:w-auto mt-4 lg:mt-0`}
+            className={`${
+              isMenuOpen ? "block" : "hidden"
+            } w-full flex-grow lg:flex lg:items-center lg:w-auto mt-4 lg:mt-0 space-x-8`}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -103,7 +105,7 @@ export default function Header() {
             {["Home", "About", "Services", "Portfolio", "Contact"].map((item, index) => (
               <motion.li
                 key={item}
-                className="block mt-4 lg:inline-block lg:mt-0 text-gray-800 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 mr-4"
+                className="block mt-4 lg:inline-block lg:mt-0 text-gray-800 dark:text-white hover:text-gray-600 dark:hover:text-gray-300"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -111,7 +113,9 @@ export default function Header() {
                 <Link
                   href={`#${item.toLowerCase()}`}
                   onClick={(e) => handleNavClick(e, item.toLowerCase())}
-                  className={`text-lg relative after:content-[''] after:w-0 after:h-0.5 after:bg-pink-600 after:absolute after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full ${activeSection === item.toLowerCase() ? "after:w-full" : ""}`}
+                  className={`text-lg relative after:content-[''] after:w-0 after:h-0.5 after:bg-pink-600 after:absolute after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full ${
+                    activeSection === item.toLowerCase() ? "after:w-full" : ""
+                  }`}
                 >
                   {item}
                 </Link>
@@ -123,4 +127,3 @@ export default function Header() {
     </motion.header>
   )
 }
-

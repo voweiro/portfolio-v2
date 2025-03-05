@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Facebook, Twitter, Instagram, Linkedin, Send, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 
+
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -81,7 +82,7 @@ export default function Contact() {
 
             {/* Download CV */}
             <motion.a
-              href="/my-cv.pdf"
+              href="/voweiro-Ajenaghughrure.pdf"
               download
               className="inline-block mt-8 px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
