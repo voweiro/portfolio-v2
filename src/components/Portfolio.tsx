@@ -10,6 +10,7 @@ import glit from "../app/glitzlogo.png";
 import med from "../app/project-logo3.png";
 import green from "../app/Green-clean.png"
 import org from "../app/main logo.png"
+import ai from "../app/ai.jpg"
 
 const projects = [
   {
@@ -36,12 +37,12 @@ const projects = [
     description: "Green Clean is a pioneering environmental services company dedicated to promoting sustainability...",
     link: "https://green-nigeria-beryl.vercel.app",
   },
-  // {
-  //   image: "/images/work-5.png",
-  //   title: "Portfolio Website",
-  //   description: "A modern and interactive portfolio website showcasing personal projects, skills, and contact information.",
-  //   link: "https://example.com/portfolio",
-  // },
+  {
+    image: ai.src,
+    title: "AI job Match",
+    description: " A demo website for a AI Job Match is an intelligent job search platform that connects job seekers with the best job opportunities based on their skills and experience.",
+    link: "https://ai-job-dashboard.vercel.app/",
+  },
 ];
 
 export default function Portfolio() {

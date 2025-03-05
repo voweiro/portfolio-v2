@@ -22,6 +22,8 @@ const services = [
     description:
       "I provide technical assistance and troubleshooting for software, networks, and cloud-based systems. My experience includes diagnosing system errors, resolving bugs, and ensuring smooth IT operations.",
   },
+
+
 ];
 
 export default function Services() {
