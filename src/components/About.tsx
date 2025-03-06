@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import pro from "../app/snapchat.jpg";
+import pro from "../app/profile.jpg";
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaJsSquare, FaGitAlt, FaDatabase } from "react-icons/fa"

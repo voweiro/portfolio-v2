@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Facebook, Twitter, Instagram, Linkedin, Send, Phone } from "lucide-react";
+import { Linkedin, Github, Send, Phone } from "lucide-react";
 import { motion } from "framer-motion";
-
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -14,7 +13,7 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulating API call
+    // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     setSubmitMessage("Your message has been sent successfully!");
@@ -27,7 +26,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <section id="contact" className="py-20 bg-background text-foreground transition-colors duration-300">
       <div className="container mx-auto px-4">
         <motion.h2
           className="text-4xl font-bold mb-12 text-center"
@@ -37,6 +36,7 @@ export default function Contact() {
         >
           Contact Me
         </motion.h2>
+
         <div className="flex flex-wrap -mx-4">
           {/* Contact Info */}
           <motion.div
@@ -58,13 +58,11 @@ export default function Contact() {
               </a>
             </p>
 
-            {/* Social Media Links */}
+            {/* Social Media Links (Only LinkedIn & GitHub) */}
             <div className="flex space-x-4">
               {[
-                { icon: Facebook, url: "https://facebook.com/yourprofile" },
-                { icon: Twitter, url: "https://twitter.com/yourprofile" },
-                { icon: Instagram, url: "https://instagram.com/yourprofile" },
                 { icon: Linkedin, url: "https://linkedin.com/in/yourprofile" },
+                { icon: Github, url: "https://github.com/yourprofile" },
               ].map(({ icon: Icon, url }, index) => (
                 <motion.a
                   key={index}
