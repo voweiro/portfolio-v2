@@ -10,6 +10,7 @@ import med from "../app/project-logo3.png";
 import green from "../app/Green-clean.png"
 import org from "../app/main logo.png"
 import ai from "../app/ai.jpg"
+import quiz from "../app/quiz.png"
 const projects = [
   {
     image: org.src,
@@ -40,6 +41,13 @@ const projects = [
     title: "AI job Match",
     description: " A demo website for a AI Job Match is an intelligent job search platform that connects job seekers with the best job opportunities based on their skills and experience.",
     link: "https://ai-job-dashboard.vercel.app/",
+  },
+
+  {
+    image: quiz.src,
+    title: "Learnify Quiz Master",
+    description: " Learnify Quiz Master is a  demo platform that allows users to create and take quizzes on various topics.",
+    link: "https://learnify-quizmaster.vercel.app/",
   },
 ];
 
