@@ -48,14 +48,14 @@ const projects = [
     image: quiz.src,
     title: "Learnify Quiz Master",
     description: " Learnify Quiz Master is a  demo platform that allows users to create and take quizzes on various topics.",
-    link: "https://edufy-khaki.vercel.app/",
+    link: "https://learnify-quizmaster.vercel.app/",
   },
 
   {
     image: edufy.src,
     title: "Edufy",
     description: " Edufy is a digital learning platform for kid with autism.",
-    link: "https://learnify-quizmaster.vercel.app/",
+    link: "https://edufy-khaki.vercel.app/",
   },
 
   
