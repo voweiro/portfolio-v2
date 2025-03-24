@@ -11,6 +11,7 @@ import green from "../app/Green-clean.png"
 import org from "../app/main logo.png"
 import ai from "../app/ai.jpg"
 import quiz from "../app/quiz.png"
+import edufy from "../app/edufy.png"
 const projects = [
   {
     image: org.src,
@@ -49,6 +50,15 @@ const projects = [
     description: " Learnify Quiz Master is a  demo platform that allows users to create and take quizzes on various topics.",
     link: "https://learnify-quizmaster.vercel.app/",
   },
+
+  {
+    image: edufy.src,
+    title: "Edufy",
+    description: " Edufy is a digital learning platform for kid with autism.",
+    link: "https://learnify-quizmaster.vercel.app/",
+  },
+
+  
 ];
 
 export default function Portfolio() {
