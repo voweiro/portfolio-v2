@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import pro from "../app/profile.jpg";
 import Image from "next/image"
 import { motion } from "framer-motion"
@@ -10,20 +10,20 @@ import { SiNextdotjs, SiTailwindcss, SiMongodb, SiTypescript } from "react-icons
 const tabData = {
   skills: [
     {
-      title: "Frontend & Full-Stack Development",
-      description: "Experienced in React.js, Next.js, and Node.js for building dynamic and scalable applications.",
+      title: "Frontend Engineering",
+      description: "Modern, responsive interfaces with React and Next.js — component‑driven architecture, accessibility, and performance optimization.",
     },
     {
-      title: "UI/UX & Responsive Design",
-      description: "Strong understanding of Tailwind CSS, Framer Motion, and modern web design principles.",
+      title: "UI/UX & Motion",
+      description: "Clean typography, adaptive layouts, and micro‑interactions with Tailwind CSS and Framer Motion for a polished user experience.",
     },
     {
-      title: "IT Support & Technical Troubleshooting",
-      description: "Proficient in diagnosing and resolving technical issues efficiently.",
+      title: "Technical Support & Troubleshooting",
+      description: "Diagnose, triage, and resolve issues across apps, networks, and cloud services with reproducible steps and preventive fixes.",
     },
     {
       title: "Version Control & Collaboration",
-      description: "Experienced with Git, GitHub, and Agile workflows for seamless team collaboration.",
+      description: "Git workflows, code reviews, documentation, and Agile delivery — clear communication and reliable handoffs.",
     },
   ],
   experience: [
@@ -86,7 +86,7 @@ export default function About() {
   const [activeTab, setActiveTab] = useState("skills")
 
   return (
-    <section id="about" className="py-20 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white">
+    <section id="about" className="py-20 bg-background text-foreground">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-between">
           {/* Profile Image */}
@@ -103,13 +103,21 @@ export default function About() {
           {/* About Content */}
           <div className="w-full lg:w-3/5">
             <h2 className="text-4xl font-bold mb-8">About Me</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-8">
-              I am a Web Developer and IT Support Specialist with hands-on experience in full-stack development, UI/UX
-              design, and technical troubleshooting. Passionate about creating efficient, scalable applications, I have
-              contributed to various projects using Next.js, React, and Node.js. My expertise in IT support ensures
-              seamless user experiences, resolving software issues efficiently. I thrive in fast-paced Agile
-              environments, continuously learning and applying best practices in software development.
+            <p className="text-gray-700 dark:text-gray-300 mb-8">
+              I’m Ajenaghughrure Voweiro — a full‑stack developer and technical support specialist passionate about
+              building fast, accessible, and delightful web experiences. I blend thoughtful UI/UX with reliable
+              engineering to ship production‑ready features, automate workflows, and help teams resolve technical issues
+              quickly. I work across React, Next.js, and the MERN stack with a focus on performance, maintainability,
+              and clear communication.
             </p>
+
+            {/* Animated Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+              <StatCard label="Years Experience" value={5} suffix="+" />
+              <StatCard label="Projects Delivered" value={30} suffix="+" />
+              <StatCard label="Technologies Used" value={20} suffix="+" />
+              <StatCard label="Tickets Resolved" value={500} suffix="+" />
+            </div>
 
             {/* Tabs */}
             <div className="flex mb-8 flex-wrap">
@@ -117,20 +125,20 @@ export default function About() {
                 <motion.button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`mr-8 pb-2 font-medium mb-2 ${
+                  className={`mr-3 mb-3 px-4 py-2 rounded-full font-medium transition-colors ${
                     activeTab === tab
-                      ? "text-pink-600 border-b-2 border-pink-600"
-                      : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                      ? "bg-pink-600 text-white shadow"
+                      : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                   }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   {tab.charAt(0).toUpperCase() + tab.slice(1)}
                 </motion.button>
               ))}
             </div>
 
-            {/* Tab Content - No More Fade-Out Issues */}
+            {/* Tab Content */}
             <div className="min-h-[200px]">
               {Object.keys(tabData).map((tab) => (
                 <motion.ul
@@ -179,5 +187,43 @@ export default function About() {
       </div>
     </section>
   )
+}
+
+function StatCard({ label, value, suffix = "" }: { label: string; value: number; suffix?: string }) {
+  return (
+    <motion.div
+      className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm p-6 rounded-xl border border-gray-200 dark:border-gray-700 text-center"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4 }}
+    >
+      <div className="text-3xl font-extrabold">
+        <AnimatedNumber value={value} />{suffix}
+      </div>
+      <div className="mt-2 text-sm text-gray-700 dark:text-gray-300">{label}</div>
+    </motion.div>
+  );
+}
+
+function AnimatedNumber({ value, duration = 2 }: { value: number; duration?: number }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let raf: number;
+    const startTime = performance.now();
+
+    const step = (now: number) => {
+      const progress = Math.min((now - startTime) / (duration * 1000), 1);
+      const current = Math.floor(progress * value);
+      setCount(current);
+      if (progress < 1) raf = requestAnimationFrame(step);
+    };
+
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [value, duration]);
+
+  return <span>{count}</span>;
 }
 

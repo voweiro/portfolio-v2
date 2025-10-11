@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Linkedin, Github, Send, Phone } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -80,7 +80,7 @@ export default function Contact() {
 
             {/* Download CV */}
             <motion.a
-              href="/voweiro-Ajenaghughrure.pdf"
+              href="/Voweiro-Ajenaghughrure.pdf"
               download
               className="inline-block mt-8 px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
@@ -134,25 +134,49 @@ export default function Contact() {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-300 disabled:opacity-50"
+                className="w-full px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? (
+                  <>
+                    <motion.span
+                      className="inline-flex"
+                      animate={{ rotate: 360 }}
+                      transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                    >
+                      <Send className="w-5 h-5" />
+                    </motion.span>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Send Message
+                  </>
+                )}
               </motion.button>
             </form>
-            {submitMessage && (
-              <motion.p className="mt-4 text-green-500" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                {submitMessage}
-              </motion.p>
-            )}
+            <AnimatePresence>
+              {submitMessage && (
+                <motion.p
+                  className="mt-4 text-green-600 bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg px-4 py-2"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {submitMessage}
+                </motion.p>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="mt-20 py-8 bg-gray-200 dark:bg-gray-800 text-center">
-        <p className="text-gray-900 dark:text-white">&copy; {new Date().getFullYear()} Ajenaghughrure Voweiro. All rights reserved.</p>
+      <div className="mt-20 py-8 border-t border-gray-200 dark:border-gray-800 text-center">
+        <p className="text-gray-700 dark:text-gray-300">&copy; {new Date().getFullYear()} Ajenaghughrure Voweiro. All rights reserved.</p>
       </div>
     </section>
   );

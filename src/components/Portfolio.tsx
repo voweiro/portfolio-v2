@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -72,8 +72,26 @@ export default function Portfolio() {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
   };
 
+  // Autoplay every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") nextSlide();
+      if (e.key === "ArrowLeft") prevSlide();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
   return (
-    <section id="portfolio" className="py-20 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+    <section id="portfolio" className="py-20 bg-background text-foreground">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold mb-12 text-center">My Work</h2>
 
@@ -87,9 +105,16 @@ export default function Portfolio() {
                 exit={{ opacity: 0, x: -300 }}
                 transition={{ duration: 0.5 }}
                 className="w-full flex flex-col items-center"
+                drag="x"
+                dragElastic={0.3}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x < -50) nextSlide();
+                  else if (info.offset.x > 50) prevSlide();
+                }}
+                style={{ cursor: "grab" }}
               >
                 {/* Image Display */}
-                <div className="relative w-full max-w-lg overflow-hidden rounded-lg shadow-lg">
+                <div className="relative w-full max-w-lg overflow-hidden rounded-2xl shadow-lg ring-1 ring-gray-200 dark:ring-gray-700 bg-white dark:bg-gray-900">
                   <Image
                     src={projects[currentIndex].image}
                     alt={projects[currentIndex].title}
@@ -102,14 +127,14 @@ export default function Portfolio() {
                 {/* Text Content */}
                 <div className="text-center mt-6 px-4 md:px-8">
                   <h3 className="text-2xl font-semibold">{projects[currentIndex].title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mt-2 text-sm md:text-base">
+                  <p className="text-gray-700 dark:text-gray-400 mt-2 text-sm md:text-base">
                     {projects[currentIndex].description}
                   </p>
                   <motion.a
                     href={projects[currentIndex].link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center mt-4 px-6 py-2 text-white bg-pink-600 rounded-full hover:bg-pink-700 transition-colors duration-300"
+                    className="inline-flex items-center justify-center mt-4 px-6 py-2 text-white bg-pink-600 rounded-full hover:bg-pink-700 transition-colors duration-300 shadow-sm"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -124,7 +149,7 @@ export default function Portfolio() {
           <div className="flex items-center justify-between w-full max-w-xs mt-6">
             <motion.button
               onClick={prevSlide}
-              className="p-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-full shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+              className="p-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300 ring-1 ring-gray-200 dark:ring-gray-700"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -133,7 +158,7 @@ export default function Portfolio() {
 
             <motion.button
               onClick={nextSlide}
-              className="p-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-full shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+              className="p-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300 ring-1 ring-gray-200 dark:ring-gray-700"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -147,8 +172,8 @@ export default function Portfolio() {
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                  currentIndex === index ? "bg-pink-600" : "bg-gray-400 dark:bg-gray-500"
+                className={`w-4 h-4 rounded-full transition-colors duration-300 ring-2 ${
+                  currentIndex === index ? "bg-pink-600 ring-pink-300" : "bg-gray-400 dark:bg-gray-500 ring-gray-300 dark:ring-gray-600"
                 }`}
               />
             ))}

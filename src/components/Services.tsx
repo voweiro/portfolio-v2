@@ -6,21 +6,21 @@ import { motion } from "framer-motion";
 const services = [
   {
     icon: Code,
-    title: "Frontend Developer",
+    title: "Frontend Engineering",
     description:
-      "I specialize in crafting modern, responsive, and interactive web interfaces using React.js, Next.js, and Tailwind CSS. I ensure seamless user experiences with optimized performance and accessibility.",
+      "Modern, accessible, and fast interfaces with React, Next.js, and Tailwind. Component libraries, state management, and performance audits for pixel‑perfect experiences.",
   },
   {
     icon: Server,
-    title: "Full-Stack Web Developer",
+    title: "Full‑Stack Development",
     description:
-      "I build scalable and efficient web applications using the MERN stack (MongoDB, Express.js, React.js, Node.js). From backend API development to frontend UI design, I deliver complete web solutions.",
+      "End‑to‑end apps with the MERN stack — scalable APIs, authentication, dashboards, and integrations. Cloud‑ready deployments and monitoring.",
   },
   {
     icon: LifeBuoy,
-    title: "IT Support & Troubleshooting",
+    title: "Technical Support & Troubleshooting",
     description:
-      "I provide technical assistance and troubleshooting for software, networks, and cloud-based systems. My experience includes diagnosing system errors, resolving bugs, and ensuring smooth IT operations.",
+      "Hands‑on support for apps and infrastructure — monitoring, issue triage, bug fixes, and knowledge base documentation. Reliable and timely resolutions.",
   },
 
 
@@ -28,21 +28,22 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-20 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <section id="services" className="py-20 bg-background text-foreground">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold mb-12 text-center">My Services</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
-              className="bg-gray-100 dark:bg-gray-800 p-8 rounded-lg transition-all duration-300 hover:shadow-xl"
-              whileHover={{ scale: 1.05 }}
+              className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm p-8 rounded-xl border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl"
+              whileHover={{ y: -4, rotateX: 2, rotateY: -3, scale: 1.02 }}
+              style={{ transformStyle: "preserve-3d", perspective: 1000 }}
             >
               <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.3 }}>
                 <service.icon className="w-12 h-12 mb-6 text-pink-600" />
               </motion.div>
               <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">{service.description}</p>
+              <p className="text-gray-700 dark:text-gray-300 mb-4">{service.description}</p>
               <motion.a
                 href="#"
                 className="text-pink-600 hover:underline inline-block"

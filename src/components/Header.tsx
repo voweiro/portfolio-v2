@@ -56,7 +56,7 @@ export default function Header() {
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background dark:bg-gray-900 shadow-md" : "bg-transparent"
+        isScrolled ? "bg-background/80 dark:bg-gray-900/70 backdrop-blur-md shadow-md" : "bg-transparent"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -64,7 +64,13 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
-        <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          whileHover={{ rotate: -5, scale: 1.05 }}
+          className="rounded-full ring-2 ring-transparent hover:ring-pink-400 transition-all duration-300"
+        >
           <Image src={log} alt="Logo" width={50} height={50} className="rounded-full" />
         </motion.div>
 
@@ -89,14 +95,22 @@ export default function Header() {
               </Link>
             </motion.li>
           ))}
+          {/* Resume CTA */}
+          <Link
+            href="/Voweiro-Ajenaghughrure.pdf"
+            target="_blank"
+            className="ml-4 inline-flex items-center px-4 py-2 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-colors duration-300"
+          >
+            Resume
+          </Link>
         </div>
 
         {/* Right Section (Theme Toggle + Mobile Menu) */}
         <div className="flex items-center">
           {/* Theme Toggle Button */}
-          {/* <div className="mr-4">
+          <div className="mr-4 hidden lg:block">
             <ThemeToggle />
-          </div> */}
+          </div>
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden">
@@ -143,6 +157,18 @@ export default function Header() {
             </Link>
           </li>
         ))}
+        <li className="text-center py-3">
+          <Link
+            href="/Voweiro-Ajenaghughrure.pdf"
+            target="_blank"
+            className="inline-flex items-center px-4 py-2 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-colors duration-300"
+          >
+            Resume
+          </Link>
+        </li>
+        <li className="text-center py-3">
+          <ThemeToggle />
+        </li>
       </motion.ul>
     </motion.header>
   );

@@ -4,127 +4,91 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Home() {
-  const [stars, setStars] = useState<{ id: number; left: string; size: number; delay: number }[]>([]);
-  const [thunders, setThunders] = useState<{ id: number; left: string; delay: number }[]>([]);
+  // Typewriter effect for roles
+  const roles = ["Full‑Stack Developer", "Technical Support Specialist"];
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    // Generate Falling Stars
-    const generateStars = () => {
-      const newStars = Array.from({ length: 20 }, (_, i) => ({
-        id: i,
-        left: `${Math.random() * 100}vw`,
-        size: Math.random() * 20 + 10,
-        delay: Math.random() * 5,
-      }));
-      setStars(newStars);
-    };
+    const current = roles[roleIndex];
+    const speed = isDeleting ? 40 : 90;
 
-    generateStars();
+    const timeout = setTimeout(() => {
+      const nextLength = isDeleting ? displayText.length - 1 : displayText.length + 1;
+      const nextText = current.slice(0, nextLength);
+      setDisplayText(nextText);
 
-    // Generate Thunder Strikes
-    const generateThunders = () => {
-      const newThunders = Array.from({ length: 4 }, (_, i) => ({
-        id: i,
-        left: `${Math.random() * 90}vw`, // Random horizontal position
-        delay: Math.random() * 3 + 1, // Random delay between 1-4 seconds
-      }));
-      setThunders(newThunders);
-    };
+      if (!isDeleting && nextText === current) {
+        setTimeout(() => setIsDeleting(true), 1000);
+      } else if (isDeleting && nextText === "") {
+        setIsDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % roles.length);
+      }
+    }, speed);
 
-    generateThunders();
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, roleIndex]);
 
-    // Regenerate thunder strikes continuously
-    const thunderInterval = setInterval(() => {
-      generateThunders();
-    }, 4000); // Thunder strikes every 4 seconds
-
-    return () => clearInterval(thunderInterval);
-  }, []);
+  // Clean, modern hero without background image dependency
 
   return (
     <section
       id="home"
-      className="relative min-h-screen bg-cover bg-center flex items-center text-gray-900 dark:text-white overflow-hidden"
-      style={{ backgroundImage: "url('/images/background4.png')" }}
+      className="relative min-h-screen flex items-center text-gray-900 dark:text-white overflow-hidden bg-gradient-to-br from-pink-50 via-white to-indigo-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800"
     >
-      {/* Zig-Zag Thunder Strikes */}
-      {thunders.map((thunder) => (
-        <motion.svg
-          key={thunder.id}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 100 400"
-          className="absolute"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [1, 1, 0] }} // Longer lasting thunder
-          transition={{ duration: 0.5, delay: thunder.delay }}
-          style={{ left: thunder.left, width: "80px", height: "400px" }} // Larger thunder
-        >
-          {/* Main Thunder Bolt */}
-          <polyline
-            points="50,0 30,80 70,120 40,200 80,280 50,400"
-            stroke="#00CFFF"
-            strokeWidth="6"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-          />
-          {/* Thunder Glow Effect */}
-          <defs>
-            <filter id="glow">
-              <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#00CFFF" />
-            </filter>
-          </defs>
-        </motion.svg>
-      ))}
-
-      {/* Falling Stars */}
-      {stars.map((star) => (
-        <motion.div
-          key={star.id}
-          className="absolute"
-          initial={{ y: "-10%", opacity: 0 }}
-          animate={{ y: "110%", opacity: 1 }}
-          transition={{
-            duration: 3.5,
-            delay: star.delay,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          style={{
-            left: star.left,
-            width: `${star.size}px`,
-            height: `${star.size}px`,
-          }}
-        >
-          {/* SVG Gold Star */}
-          <svg
-            viewBox="0 0 24 24"
-            fill="url(#goldGradient)"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full"
-          >
-            <defs>
-              <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#FFD700" />
-                <stop offset="50%" stopColor="#FFC107" />
-                <stop offset="100%" stopColor="#FFA500" />
-              </linearGradient>
-            </defs>
-            <path d="M12 2l2.8 6.8 7.2 1-5.4 5.2 1.4 7.2L12 18l-6 3.2 1.4-7.2L2 9.8l7.2-1L12 2z" />
-          </svg>
-        </motion.div>
-      ))}
-
       {/* Hero Text */}
+      {/* Animated background blobs */}
+      <motion.div
+        className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-pink-200 blur-3xl opacity-50"
+        animate={{
+          x: [0, 30, -10, 0],
+          y: [0, -20, 10, 0],
+          scale: [1, 1.05, 0.98, 1],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-10 right-10 w-64 h-64 rounded-full bg-indigo-200 blur-3xl opacity-40"
+        animate={{
+          x: [0, -25, 10, 0],
+          y: [0, 15, -10, 0],
+          scale: [1, 1.08, 0.96, 1],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+
       <div className="container mx-auto px-4 relative z-10">
-        <div className="mt-20 lg:mt-32">
-          <p className="text-2xl mb-4 text-gray-800 dark:text-gray-200">
-            Full Stack Developer
-          </p>
-          <h1 className="text-4xl lg:text-6xl font-bold mb-4">
-            Hi, I'm <span className="text-pink-600">Ajenaghonore</span> <br /> Voweiro
+        <div className="mt-24 lg:mt-32 max-w-3xl">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300 mb-6">
+            {displayText}
+            <motion.span
+              className="inline-block w-3 h-6 ml-1 bg-pink-600 dark:bg-pink-400"
+              animate={{ opacity: [1, 0.2, 1] }}
+              transition={{ duration: 0.8, repeat: Infinity }}
+            />
+          </span>
+          <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+            Building delightful, performant web experiences.
           </h1>
+          <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
+            I craft modern, accessible interfaces and scalable full‑stack apps. Explore my work and get in touch.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <a
+              href="/Voweiro-Ajenaghughrure.pdf"
+              target="_blank"
+              className="inline-flex items-center px-6 py-3 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-colors duration-300"
+            >
+              View Resume
+            </a>
+            <a
+              href="#portfolio"
+              className="inline-flex items-center px-6 py-3 rounded-full border border-pink-600 text-pink-700 hover:bg-pink-50 dark:text-pink-300 dark:hover:bg-pink-900/20 transition-colors duration-300"
+            >
+              See Projects
+            </a>
+          </div>
         </div>
       </div>
     </section>
