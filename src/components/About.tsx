@@ -200,6 +200,11 @@ function IconRenderer({ Icon, className }: { Icon?: IconComp; className?: string
 }
 
 const experiences = [
+   {
+    title: "Web/Application Specialist - Nigerian British Univeristy",
+    description:
+      "Lead the Software Development Unit within the ICT Department, overseeing all web and application projects including staff portals, student systems, and administrative tools.",
+  },
   {
     title: "Full-Stack Web Developer (Saint Spark) - Remote",
     description:
