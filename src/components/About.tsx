@@ -97,7 +97,7 @@ export default function About() {
              <motion.a
               href="/voweiro-ajenaghughrure-full-stack-developer.pdf"
               download
-              className="inline-block mt-8 px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-300"
+              className="inline-block mt-8 px-8 py-3 bg-orange-300 text-white rounded-full hover:bg-orange-400 transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
