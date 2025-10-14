@@ -43,7 +43,7 @@ export default function Services() {
                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.3 }}>
                   <service.icon className="w-12 h-12 mb-6 text-pink-600" />
                 </motion.div>
-                <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>
+                <h3 className="text-2xl text-orange-400 font-semibold mb-4">{service.title}</h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4">{service.description}</p>
                 <motion.a
                   href="#"
