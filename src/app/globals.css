@@ -4,8 +4,9 @@
 
 @layer base {
   :root {
-    --background: #f8fafc; /* slate-50 */
-    --foreground: #0f172a; /* slate-900 */
+    /* Force dark palette site-wide */
+    --background: #0b1220; /* deep slate */
+    --foreground: #e5e7eb; /* gray-200 */
   }
 
   .dark {

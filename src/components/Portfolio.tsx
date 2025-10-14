@@ -93,9 +93,10 @@ export default function Portfolio() {
   return (
     <section id="portfolio" className="py-20 bg-background text-foreground">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center">My Work</h2>
+        <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-gray-900/40 shadow-sm p-8">
+          <h2 className="text-4xl font-bold mb-12 text-center">My Work</h2>
 
-        <div className="relative flex flex-col items-center">
+          <div className="relative flex flex-col items-center">
           <div className="w-full max-w-4xl overflow-hidden">
             <AnimatePresence initial={false}>
               <motion.div
@@ -127,7 +128,7 @@ export default function Portfolio() {
                 {/* Text Content */}
                 <div className="text-center mt-6 px-4 md:px-8">
                   <h3 className="text-2xl font-semibold">{projects[currentIndex].title}</h3>
-                  <p className="text-gray-700 dark:text-gray-400 mt-2 text-sm md:text-base">
+                  <p className="text-gray-800 dark:text-gray-300 mt-2 text-sm md:text-base">
                     {projects[currentIndex].description}
                   </p>
                   <motion.a
@@ -179,6 +180,7 @@ export default function Portfolio() {
             ))}
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

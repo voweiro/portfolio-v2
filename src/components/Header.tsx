@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/theme-toggle"; // Ensure correct import path
 import log from "@/app/logoaj.jpg"; // Ensure this image is in `public/`
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
@@ -105,13 +104,8 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Right Section (Theme Toggle + Mobile Menu) */}
+        {/* Right Section (Mobile Menu) */}
         <div className="flex items-center">
-          {/* Theme Toggle Button */}
-          <div className="mr-4 hidden lg:block">
-            <ThemeToggle />
-          </div>
-
           {/* Mobile Menu Button */}
           <div className="lg:hidden">
             <button
@@ -166,9 +160,7 @@ export default function Header() {
             Resume
           </Link>
         </li>
-        <li className="text-center py-3">
-          <ThemeToggle />
-        </li>
+        
       </motion.ul>
     </motion.header>
   );

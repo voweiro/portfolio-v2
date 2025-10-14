@@ -28,16 +28,17 @@ export default function Contact() {
   return (
     <section id="contact" className="py-20 bg-background text-foreground transition-colors duration-300">
       <div className="container mx-auto px-4">
-        <motion.h2
-          className="text-4xl font-bold mb-12 text-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Contact Me
-        </motion.h2>
+        <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-gray-900/40 backdrop-blur-sm shadow-sm p-8">
+          <motion.h2
+            className="text-4xl font-bold mb-12 text-center"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            Contact Me
+          </motion.h2>
 
-        <div className="flex flex-wrap -mx-4">
+          <div className="flex flex-wrap -mx-4">
           {/* Contact Info */}
           <motion.div
             className="w-full lg:w-1/2 px-4 mb-12 lg:mb-0"
@@ -54,7 +55,7 @@ export default function Contact() {
             <p className="flex items-center mb-8">
               <Phone className="w-6 h-6 mr-4 text-pink-600" />
               <a href="tel:+234738734379" className="hover:text-pink-600 transition-colors duration-300">
-                +234 738 734 379
+                +372 5636 9001
               </a>
             </p>
 
@@ -178,6 +179,7 @@ export default function Contact() {
       <div className="mt-20 py-8 border-t border-gray-200 dark:border-gray-800 text-center">
         <p className="text-gray-700 dark:text-gray-300">&copy; {new Date().getFullYear()} Ajenaghughrure Voweiro. All rights reserved.</p>
       </div>
+      </div>    
     </section>
   );
 }

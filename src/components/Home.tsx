@@ -59,7 +59,7 @@ export default function Home() {
       />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="mt-24 lg:mt-32 max-w-3xl">
+        <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-gray-900/40 backdrop-blur-sm shadow-sm p-8 mt-24 lg:mt-32 max-w-3xl">
           <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300 mb-6">
             {displayText}
             <motion.span
