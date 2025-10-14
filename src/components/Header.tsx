@@ -96,7 +96,7 @@ export default function Header() {
           ))}
           {/* Resume CTA */}
           <Link
-            href="/Voweiro-Ajenaghughrure.pdf"
+            href="/voweiro-ajenaghughrure-full-stack-developer.pdf"
             target="_blank"
             className="ml-4 inline-flex items-center px-4 py-2 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-colors duration-300"
           >
