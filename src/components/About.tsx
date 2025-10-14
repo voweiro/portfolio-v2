@@ -92,9 +92,18 @@ export default function About() {
               Education <FiArrowRight />
             </button>
           </div>
-          <a href="#" className="inline-flex items-center gap-2 rounded-xl bg-white/10 dark:bg-white/5 px-4 py-3 text-sm font-medium text-orange-100 border border-orange-300/30 hover:bg-orange-300/10 transition">
-            <FiDownload /> Download CV
-          </a>
+         
+            
+             <motion.a
+              href="/voweiro-ajenaghughrure-full-stack-developer.pdf"
+              download
+              className="inline-block mt-8 px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Download CV
+            </motion.a>
+          
         </div>
 
         {/* Experience */}
@@ -174,9 +183,9 @@ export default function About() {
 
         {/* Stats */}
         <div className="mt-20 grid grid-cols-3 gap-6 text-center">
-          <StatBadge value={30} label="Articles" />
-          <StatBadge value={100} label="Videos" />
-          <StatBadge value={15} label="Talks" />
+          <StatBadge value={30} label="Project" />
+          <StatBadge value={20} label="Documentation" />
+          <StatBadge value={600} label="Resolved tickets" />
         </div>
       </div>
     </section>
