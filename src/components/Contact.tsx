@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Linkedin, Github, Send, Phone } from "lucide-react";
+import { Linkedin, Github, Send, Phone, Mail, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Contact() {
@@ -12,13 +12,12 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    setSubmitMessage("Your message has been sent successfully!");
+    setSubmitMessage("Message sent! I'll get back to you soon.");
     setFormData({ name: "", email: "", message: "" });
     setIsSubmitting(false);
+    setTimeout(() => setSubmitMessage(""), 5000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -26,160 +25,178 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-background text-foreground transition-colors duration-300">
-      <div className="container mx-auto px-4">
-        <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-gray-900/40 backdrop-blur-sm shadow-sm p-8">
-          <motion.h2
-            className="text-4xl font-bold mb-12 text-center"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            Contact Me
-          </motion.h2>
+    <section id="contact" className="py-24 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-gradient-to-tr from-primary/5 via-transparent to-secondary/5 blur-3xl rounded-full pointer-events-none" />
 
-          <div className="flex flex-wrap -mx-4">
+      <div className="container mx-auto px-6 relative z-10">
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.6 }}
+           className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">
+            <span className="text-gradient-custom">Get In Touch</span>
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Have a project in mind or just want to say hi? I&apos;d love to hear from you.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
           {/* Contact Info */}
           <motion.div
-            className="w-full lg:w-1/2 px-4 mb-12 lg:mb-0"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
           >
-            <p className="flex items-center mb-4">
-              <Send className="w-6 h-6 mr-4 text-pink-600" />
-              <a href="mailto:ajenaghonorevoweiro@gmail.com" className="hover:text-pink-600 transition-colors duration-300">
-                ajenaghonorevoweiro@gmail.com
-              </a>
-            </p>
-            <p className="flex items-center mb-8">
-              <Phone className="w-6 h-6 mr-4 text-pink-600" />
-              <a href="tel:+234738734379" className="hover:text-pink-600 transition-colors duration-300">
-                +372 5636 9001
-              </a>
-            </p>
-
-            {/* Social Media Links (Only LinkedIn & GitHub) */}
-            <div className="flex space-x-4">
-              {[
-                { icon: Linkedin, url: "https://www.linkedin.com/in/ajenahonore-voweiro-623972289/" },
-                { icon: Github, url: "https://github.com/voweiro" },
-              ].map(({ icon: Icon, url }, index) => (
-                <motion.a
-                  key={index}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-500 dark:text-gray-400 hover:text-pink-600 transition-colors duration-300"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Icon className="w-6 h-6" />
-                </motion.a>
-              ))}
+            <div className="glass-card p-8 rounded-2xl border border-border space-y-6">
+              <ContactItem 
+                icon={Mail} 
+                label="Email" 
+                value="ajenaghonorevoweiro@gmail.com" 
+                href="mailto:ajenaghonorevoweiro@gmail.com" 
+              />
+              <ContactItem 
+                icon={Phone} 
+                label="Phone" 
+                value="+372 5636 9001" 
+                href="tel:+37256369001" 
+              />
+              <ContactItem 
+                icon={MapPin} 
+                label="Location" 
+                value="Tallinn, Estonia / Remote" 
+              />
             </div>
 
-            {/* Download CV */}
-            <motion.a
-              href="/Voweiro-Ajenaghughrure.pdf"
-              download
-              className="inline-block mt-8 px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Download CV
-            </motion.a>
+            <div className="flex gap-4 justify-center lg:justify-start">
+              <SocialButton icon={Linkedin} href="https://www.linkedin.com/in/ajenahonore-voweiro-623972289/" label="LinkedIn" />
+              <SocialButton icon={Github} href="https://github.com/voweiro" label="GitHub" />
+            </div>
           </motion.div>
 
           {/* Contact Form */}
           <motion.div
-            className="w-full lg:w-1/2 px-4"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="glass-card p-8 rounded-2xl border border-border"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                <input
-                  type="text"
+              <div className="space-y-4">
+                <InputGroup
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Your name"
-                  required
-                  className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-600"
+                  placeholder="Your Name"
                 />
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
-                <input
-                  type="email"
+                <InputGroup
                   name="email"
+                  type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Your email"
-                  required
-                  className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-600"
+                  placeholder="Your Email"
                 />
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Your message"
+                  placeholder="Tell me about your project..."
+                  rows={4}
                   required
-                  rows={6}
-                  className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-600"
+                  className="w-full px-5 py-4 bg-card border border-input rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 focus:bg-accent/50 transition-all resize-none"
                 />
-              </motion.div>
+              </div>
+
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-bold text-lg shadow-lg hover:shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 {isSubmitting ? (
-                  <>
-                    <motion.span
-                      className="inline-flex"
-                      animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                    >
-                      <Send className="w-5 h-5" />
-                    </motion.span>
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     Sending...
-                  </>
+                  </span>
                 ) : (
                   <>
-                    <Send className="w-5 h-5" />
-                    Send Message
+                    <Send size={18} /> Send Message
                   </>
                 )}
               </motion.button>
+
+              <AnimatePresence>
+                {submitMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="p-4 rounded-lg bg-green-500/20 border border-green-500/30 text-green-400 text-center text-sm font-medium"
+                  >
+                    {submitMessage}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </form>
-            <AnimatePresence>
-              {submitMessage && (
-                <motion.p
-                  className="mt-4 text-green-600 bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg px-4 py-2"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {submitMessage}
-                </motion.p>
-              )}
-            </AnimatePresence>
           </motion.div>
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="mt-20 py-8 border-t border-gray-200 dark:border-gray-800 text-center">
-        <p className="text-gray-700 dark:text-gray-300">&copy; {new Date().getFullYear()} Ajenaghughrure Voweiro. All rights reserved.</p>
-      </div>
-      </div>    
+      <footer className="mt-24 py-8 border-t border-border text-center text-muted-foreground text-sm">
+        <p>&copy; {new Date().getFullYear()} Ajenaghughrure Voweiro. Crafted with ❤️ and Next.js.</p>
+      </footer>
     </section>
+  );
+}
+
+function ContactItem({ icon: Icon, label, value, href }: { icon: any, label: string, value: string, href?: string }) {
+  const content = (
+    <div className="flex items-center gap-4 group cursor-pointer">
+      <div className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+        <Icon size={20} />
+      </div>
+      <div>
+        <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{label}</div>
+        <div className="text-foreground font-medium group-hover:text-primary transition-colors">{value}</div>
+      </div>
+    </div>
+  );
+
+  return href ? <a href={href}>{content}</a> : content;
+}
+
+function SocialButton({ icon: Icon, href, label }: { icon: any, href: string, label: string }) {
+  return (
+    <a 
+      href={href} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="p-4 rounded-full glass-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 group"
+      aria-label={label}
+    >
+      <Icon size={24} className="group-hover:scale-110 transition-transform" />
+    </a>
+  );
+}
+
+function InputGroup({ name, type = "text", value, onChange, placeholder }: any) {
+  return (
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      required
+      className="w-full px-5 py-4 bg-card border border-input rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 focus:bg-accent/50 transition-all"
+    />
   );
 }

@@ -1,9 +1,10 @@
 import "@/app/globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/app/provider/theme-provider"; // ✅ Ensure correct import path
+import { Inter, Outfit } from "next/font/google"; // Added Outfit
+import { ThemeProvider } from "@/components/ThemeProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" }); // Configured Outfit
 
 export const metadata: Metadata = {
   title: "Ajenaghughrure Voweiro - Portfolio",
@@ -12,8 +13,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${inter.className} bg-background text-foreground`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${outfit.variable} font-body bg-background text-foreground antialiased selection:bg-cyan-500/30 selection:text-cyan-200`}>
         <ThemeProvider>
           {children}
         </ThemeProvider>

@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import log from "@/app/logoaj.jpg"; // Ensure this image is in `public/`
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import log from "@/app/logoaj.jpg";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,7 +14,7 @@ export default function Header() {
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 50);
+    setIsScrolled(latest > 20);
   });
 
   useEffect(() => {
@@ -52,116 +53,146 @@ export default function Header() {
     setIsMenuOpen(false);
   };
 
+  const navItems = ["Home", "About", "Services", "Portfolio", "Contact"];
+
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/80 dark:bg-gray-900/70 backdrop-blur-md shadow-md" : "bg-transparent"
+        isScrolled ? "glass shadow-glow" : "bg-transparent py-4"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div className="container mx-auto px-6 py-3 flex justify-between items-center">
         {/* Logo */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          whileHover={{ rotate: -5, scale: 1.05 }}
-          className="rounded-full ring-2 ring-transparent hover:ring-pink-400 transition-all duration-300"
+          whileHover={{ scale: 1.05 }}
+          className="relative group cursor-pointer"
         >
-          <Image src={log} alt="Logo" width={50} height={50} className="rounded-full" />
+          <div className="absolute inset-0 bg-primary/50 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <Image 
+            src={log} 
+            alt="Logo" 
+            width={45} 
+            height={45} 
+            className="rounded-full ring-2 ring-white/10 group-hover:ring-primary transition-all duration-300 relative z-10" 
+          />
         </motion.div>
 
-        {/* Navigation */}
-        <div className="hidden lg:flex items-center space-x-8">
-          {["Home", "About", "Services", "Portfolio", "Contact"].map((item, index) => (
-            <motion.li
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center space-x-8 bg-white/5 px-8 py-2 rounded-full border border-white/10 backdrop-blur-sm">
+          {navItems.map((item, index) => (
+            <motion.div
               key={item}
-              className="text-gray-800 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition duration-300 relative list-none"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.3, delay: index * 0.1 }}
             >
               <Link
                 href={`#${item.toLowerCase()}`}
                 onClick={(e) => handleNavClick(e, item.toLowerCase())}
-                className={`text-lg relative after:content-[''] after:w-0 after:h-0.5 after:bg-pink-600 after:absolute after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full ${
-                  activeSection === item.toLowerCase() ? "after:w-full" : ""
+                className={`text-sm font-medium tracking-wide transition-all duration-300 relative ${
+                  activeSection === item.toLowerCase() 
+                    ? "text-primary shadow-[0_0_10px_theme('colors.primary.DEFAULT')] drop-shadow-sm" 
+                    : "text-muted-foreground hover:text-white"
                 }`}
               >
                 {item}
+                {activeSection === item.toLowerCase() && (
+                  <motion.div
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary rounded-full"
+                    layoutId="underline"
+                  />
+                )}
               </Link>
-            </motion.li>
+            </motion.div>
           ))}
-          {/* Resume CTA */}
-          <Link
-            href="/voweiro-ajenaghughrure-full-stack-developer.pdf"
-            target="_blank"
-            className="ml-4 inline-flex items-center px-4 py-2 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-colors duration-300"
-          >
-            Resume
-          </Link>
-        </div>
+        </nav>
 
-        {/* Right Section (Mobile Menu) */}
-        <div className="flex items-center">
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden">
+          {/* Resume CTA & Mobile Toggle */}
+          <div className="flex items-center gap-4">
+            <div className="hidden lg:block">
+              <ThemeToggle />
+            </div>
+
+            <motion.a
+              href="/Voweiro-Ajenaghughrure.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:inline-flex items-center px-6 py-2 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-medium text-sm hover:shadow-[0_0_20px_theme('colors.primary.DEFAULT')] transition-all duration-300 transform hover:-translate-y-0.5"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Resume
+            </motion.a>
+
+            <div className="lg:hidden">
+              <ThemeToggle />
+            </div>
+
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-800 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition"
+              className="lg:hidden text-foreground p-2 hover:bg-white/10 rounded-full transition-colors"
             >
-              <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
-                  <path
-                    fillRule="evenodd"
-                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
             </button>
           </div>
-        </div>
       </div>
 
-      {/* Mobile Menu */}
-      <motion.ul
-        className={`lg:hidden absolute top-full left-0 right-0 bg-background dark:bg-gray-900 shadow-md transition-transform ${
-          isMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0 pointer-events-none"
-        }`}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: isMenuOpen ? 1 : 0, y: isMenuOpen ? 0 : -20 }}
-        transition={{ duration: 0.3 }}
-      >
-        {["Home", "About", "Services", "Portfolio", "Contact"].map((item) => (
-          <li key={item} className="text-center py-3 border-b border-gray-300 dark:border-gray-700">
-            <Link
-              href={`#${item.toLowerCase()}`}
-              onClick={(e) => handleNavClick(e, item.toLowerCase())}
-              className="text-gray-800 dark:text-white hover:text-pink-600 transition-colors duration-300"
-            >
-              {item}
-            </Link>
-          </li>
-        ))}
-        <li className="text-center py-3">
-          <Link
-            href="/Voweiro-Ajenaghughrure.pdf"
-            target="_blank"
-            className="inline-flex items-center px-4 py-2 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-colors duration-300"
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden glass border-t border-white/10 overflow-hidden"
           >
-            Resume
-          </Link>
-        </li>
-        
-      </motion.ul>
+            <ul className="flex flex-col p-4 space-y-2">
+              {navItems.map((item) => (
+                <motion.li 
+                  key={item}
+                  whileHover={{ x: 10 }}
+                  className="w-full"
+                >
+                  <Link
+                    href={`#${item.toLowerCase()}`}
+                    onClick={(e) => handleNavClick(e, item.toLowerCase())}
+                    className={`block px-4 py-3 rounded-lg transition-colors ${
+                      activeSection === item.toLowerCase()
+                        ? "bg-primary/20 text-primary border border-primary/20"
+                        : "text-gray-300 hover:bg-white/5 hover:text-white"
+                    }`}
+                  >
+                    {item}
+                  </Link>
+                </motion.li>
+              ))}
+              <li className="pt-4 mt-2 border-t border-white/10">
+                <a
+                  href="/Voweiro-Ajenaghughrure.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition-colors"
+                >
+                  Download Resume
+                </a>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

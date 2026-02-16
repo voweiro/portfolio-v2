@@ -1,95 +1,137 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
+import Link from "next/link";
+import Image from "next/image";
+import profilePic from "@/app/profile.jpg";
 
 export default function Home() {
-  // Typewriter effect for roles
-  const roles = ["Full‑Stack Developer", "Technical Support Specialist"];
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const current = roles[roleIndex];
-    const speed = isDeleting ? 40 : 90;
-
-    const timeout = setTimeout(() => {
-      const nextLength = isDeleting ? displayText.length - 1 : displayText.length + 1;
-      const nextText = current.slice(0, nextLength);
-      setDisplayText(nextText);
-
-      if (!isDeleting && nextText === current) {
-        setTimeout(() => setIsDeleting(true), 1000);
-      } else if (isDeleting && nextText === "") {
-        setIsDeleting(false);
-        setRoleIndex((prev) => (prev + 1) % roles.length);
-      }
-    }, speed);
-
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, roleIndex]);
-
-  // Clean, modern hero without background image dependency
-
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center text-gray-900 dark:text-white overflow-hidden bg-gradient-to-br from-pink-50 via-white to-indigo-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800"
+    <section 
+      id="home" 
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20"
     >
-      {/* Hero Text */}
-      {/* Animated background blobs */}
-      <motion.div
-        className="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-pink-200 blur-3xl opacity-50"
-        animate={{
-          x: [0, 30, -10, 0],
-          y: [0, -20, 10, 0],
-          scale: [1, 1.05, 0.98, 1],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-10 right-10 w-64 h-64 rounded-full bg-indigo-200 blur-3xl opacity-40"
-        animate={{
-          x: [0, -25, 10, 0],
-          y: [0, 15, -10, 0],
-          scale: [1, 1.08, 0.96, 1],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
+      {/* Background Blobs - Adjusted for Light/Dark */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+        <motion.div
+            animate={{
+              x: [0, 100, 0],
+              y: [0, -50, 0],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-500/20 dark:bg-purple-600/30 rounded-full blur-3xl opacity-50 dark:opacity-100"
+        />
+        <motion.div
+            animate={{
+              x: [0, -50, 0],
+              y: [0, 100, 0],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-400/20 dark:bg-cyan-500/30 rounded-full blur-3xl opacity-50 dark:opacity-100"
+        />
+      </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-gray-900/40 backdrop-blur-sm shadow-sm p-8 mt-24 lg:mt-32 max-w-3xl">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300 mb-6">
-            {displayText}
-            <motion.span
-              className="inline-block w-3 h-6 ml-1 bg-pink-600 dark:bg-pink-400"
-              animate={{ opacity: [1, 0.2, 1] }}
-              transition={{ duration: 0.8, repeat: Infinity }}
-            />
-          </span>
-          <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-            Building delightful, performant web experiences.
-          </h1>
-          <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
-            I craft modern, accessible interfaces and scalable full‑stack apps. Explore my work and get in touch.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <a
-              href="/Voweiro-Ajenaghughrure.pdf"
-              target="_blank"
-              className="inline-flex items-center px-6 py-3 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-colors duration-300"
-            >
-              View Resume
-            </a>
-            <a
-              href="#portfolio"
-              className="inline-flex items-center px-6 py-3 rounded-full border border-pink-600 text-pink-700 hover:bg-pink-50 dark:text-pink-300 dark:hover:bg-pink-900/20 transition-colors duration-300"
-            >
-              See Projects
-            </a>
-          </div>
+      <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Text Content */}
+        <div className="text-center lg:text-left order-2 lg:order-1">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-lg md:text-xl font-medium text-primary mb-4 tracking-wide">
+              Hello, I&apos;m
+            </h2>
+            <h1 className="text-5xl md:text-7xl font-bold font-heading mb-6 tracking-tight text-foreground">
+              Ajenaghughrure{" "}
+              <span className="text-gradient-custom relative inline-block">
+                Voweiro
+                <motion.svg
+                  className="absolute w-full h-3 -bottom-1 left-0 text-primary opacity-70"
+                  viewBox="0 0 100 10"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                >
+                  <path d="M0 5 Q 50 10 100 5" fill="none" stroke="currentColor" strokeWidth="2" />
+                </motion.svg>
+              </span>
+            </h1>
+
+            <div className="text-2xl md:text-3xl font-light text-muted-foreground mb-8 h-10">
+              <Typewriter
+                words={["Full Stack Developer", "UI/UX Enthusiast", "Tech Innovator"]}
+                loop={0}
+                cursor
+                cursorStyle="_"
+                typeSpeed={70}
+                deleteSpeed={50}
+                delaySpeed={1000}
+              />
+            </div>
+
+            <p className="text-lg text-muted-foreground mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+              I build exceptional digital experiences that differ. Passionate about creating software that improves the lives of those around me.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
+              <Link
+                href="#portfolio"
+                className="px-8 py-4 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all transform hover:-translate-y-1"
+              >
+                View My Work
+              </Link>
+              <Link
+                href="#contact"
+                className="px-8 py-4 rounded-full glass text-foreground font-medium hover:bg-white/10 dark:hover:bg-white/5 transition-all border border-border"
+              >
+                Contact Me
+              </Link>
+            </div>
+          </motion.div>
         </div>
+
+        {/* Profile Image - New Section */}
+        <motion.div 
+          className="order-1 lg:order-2 flex justify-center"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <div className="relative w-72 h-72 md:w-96 md:h-96">
+            {/* Animated Ring */}
+            <motion.div 
+              className="absolute inset-0 rounded-full border-2 border-dashed border-primary/30"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.div 
+              className="absolute -inset-4 rounded-full border border-secondary/20"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            />
+            
+            {/* Image Container */}
+            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/10 shadow-2xl">
+              <Image
+                src={profilePic}
+                alt="Ajenaghughrure Voweiro"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
